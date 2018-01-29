@@ -1,0 +1,10 @@
+<script src="<%= static_path(@conn, "/js/interface.js") %>"></script>
+<button type="button" onclick="sendStart()">start</button>
+
+<style>
+  #canvas {
+  background: #666;
+  }
+</style>
+<canvas id="canvas" width="800" height="400"></canvas>
+<script src="<%= static_path(@conn, "/js/render.js") %>"></script>
