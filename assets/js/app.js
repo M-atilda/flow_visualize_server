@@ -11,11 +11,40 @@
 //
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
-import "phoenix_html"
+// import "phoenix_html"
 
 // Import local files
 //
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
-import socket from "./socket"
+// import socket from "./socket"
+import {Socket} from "phoenix"
+
+
+var sock;
+var channel;
+
+function initSock() {
+    sock = new Socket("/socket");
+    sock.connect();
+    channel = sock.channel("room:lobby", {});
+    channel.join();
+
+    channel.on("data", function(data) {
+        console.log("receive new data");
+        console.log(data.msg);
+    });
+}
+
+function sendStart() {
+    console.log("send start signal");
+    channel.push("start", {});
+}
+
+window.onload = function() {
+    initSock();
+    document.getElementById("start_button").onclick = function() {
+        sendStart();
+    }
+}

@@ -1,5 +1,4 @@
-<script src="<%= static_path(@conn, "/js/interface.js") %>"></script>
-<button type="button" onclick="sendStart()">start</button>
+<button type="button" id="start_button">start</button>
 
 <style>
   #canvas {
