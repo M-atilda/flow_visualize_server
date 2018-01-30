@@ -32,13 +32,12 @@ function initSock() {
     channel.join();
 
     channel.on("data", function(data) {
-        // console.log("receive new data");
-        // console.log(data.flow_data["u"][10][10]);
         flow_data['u'] = data.flow_data['u'];
         flow_data['v'] = data.flow_data['v'];
         flow_width = flow_data['u'][0].length;
         flow_height = flow_data['u'].length;
         update();
+        console.log("[Info] image updated");
     });
 }
 

@@ -15,8 +15,9 @@ defmodule VisualizeServerWeb.RoomChannel do
   #NOTE: data is passed as map object
   def handle_in("start", _data, socket) do
     IO.puts "[Info] start rendering."
-    data = Util.Data.readFlowDataJson "sample", "10"
+    data = Util.Data.readFlowDataJson "sample", "7780"
     broadcast! socket, "data", %{flow_data: data}
+    IO.puts "[Info] sent data."
     {:noreply, socket}
   end
 

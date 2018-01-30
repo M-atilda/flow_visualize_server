@@ -12,7 +12,7 @@ defmodule Util.Data do
 
   defp getAbsPath data_name, number do
     subdir_name = Integer.to_string div(number, 100)
-    file_name = Integer.to_string rem(number, 100)
+    file_name = Integer.to_string number
     "data/" <> data_name <> "/" <> subdir_name <> "/" <> file_name
   end
 
