@@ -1,3 +1,7 @@
+#file   room_channel.ex
+#author mi-na
+#date   18/01/30
+
 defmodule VisualizeServerWeb.RoomChannel do
   use Phoenix.Channel
 
@@ -8,14 +12,12 @@ defmodule VisualizeServerWeb.RoomChannel do
     {:error, %{reason: "unauthorized"}}
   end
 
+  #NOTE: data is passed as map object
   def handle_in("start", _data, socket) do
-    IO.puts "[Info] start renering."
-    broadcast! socket, "data", %{msg: "hello"}
+    IO.puts "[Info] start rendering."
+    data = Util.Data.readFlowDataJson "sample", "10"
+    broadcast! socket, "data", %{flow_data: data}
     {:noreply, socket}
   end
 
-  # def handle_in("move", %{"x" => x, "y" => y}, socket) do
-  #   broadcast! socket, "move", %{x: x, y: y}
-  #   {:noreply, socket}
-  # end
 end
