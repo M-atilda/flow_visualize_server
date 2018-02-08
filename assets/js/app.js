@@ -25,6 +25,9 @@ import {Socket} from "phoenix"
 var sock;
 var channel;
 
+var ite_times = 15000;
+var MAX_ITE_TIMES = 3400;
+
 function initSock() {
     sock = new Socket("/socket");
     sock.connect();
@@ -34,16 +37,24 @@ function initSock() {
     channel.on("data", function(data) {
         flow_data['u'] = data.flow_data['u'];
         flow_data['v'] = data.flow_data['v'];
+        flow_data['p'] = data.flow_data['p'];
         flow_width = flow_data['u'][0].length;
         flow_height = flow_data['u'].length;
         update();
-        console.log("[Info] image updated");
+        console.log("[Info] image updated <", ite_times, ">");
+        // if (ite_times < MAX_ITE_TIMES) {
+        //     channel.push("data", {name: "sample", time: String(ite_times)});
+        //     ite_times += 1;
+        // } else {
+        //     console.log("[Info] finish");
+        // }
     });
 }
 
 function sendStart() {
     console.log("[Info] send start signal");
-    channel.push("start", {});
+    channel.push("data", {name: "sample", time: String(ite_times)});
+    ite_times += 1;
 }
 
 window.onload = function() {
